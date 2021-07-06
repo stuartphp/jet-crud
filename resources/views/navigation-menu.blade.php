@@ -18,10 +18,10 @@
                     <x-jet-nav-link href="#" :active="request()->is('user-manager/*')" :dropdown="true">
                         {{ __('Users Manager') }}
                         <x-slot name="children">
-                            <a href="/user-manager/users">Users</a>
+                            <a href="{{ route('user-manager.users') }}">Users</a>
                             <span class="separator"></span>
-                            <a href="#">Roles</a>
-                            <a href="#">Permissions</a>
+                            <a href="{{ route('user-manager.roles') }}">Roles</a>
+                            <a href="{{ route('user-manager.permissions') }}">Permissions</a>
                         </x-slot>
                     </x-jet-nav-link>
                 </div>

@@ -3,10 +3,10 @@
 namespace App\Http\Livewire\UserManager;
 
 use Livewire\Component;
-use App\Models\User;
 use Livewire\WithPagination;
+use App\Models\Role;
 
-class Users extends Component
+class Roles extends Component
 {
     use WithPagination;
 
@@ -22,17 +22,11 @@ class Users extends Component
 
     public function render()
     {
-        $data = $this->query()
-            ->when($this->searchTerm, function($q){
-                $q->where('name', 'like', '%'.$this->searchTerm.'%')
-                    ->orWhere('email', 'like', '%'.$this->searchTerm.'%');
-            })
+        $data= $this->query()
             ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
             ->paginate(10);
-
-        return view('livewire.user-manager.users', ['data'=>$data]);
+        return view('livewire.user-manager.roles', ['data'=>$data]);
     }
-
     public function sortBy($field)
     {
         if ($field == $this->sortBy) {
@@ -43,6 +37,6 @@ class Users extends Component
 
     public function query()
     {
-        return User::query();
+        return Role::query();
     }
 }

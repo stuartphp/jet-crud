@@ -4,9 +4,9 @@
         <div class="flex justify-between items-center">
 
             <div class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Users') }}
+                {{ __('Permissions') }}
             </div>
-            <x-secondary-button mode="add" wire:click="$emitTo('user-manager.users-child', 'showCreateForm');">Create</x-secondary-button>
+            <x-secondary-button mode="add" wire:click="$emitTo('user-manager.permissions-child', 'showCreateForm');">Create</x-secondary-button>
             <div>
 <x-input type="search" wire:model.debounce.300ms="searchTerm" class="bg-purple-white shadow rounded border-0" placeholder="Search..."/>
 
@@ -21,6 +21,14 @@
                     <table class="min-w-max w-full table-auto">
                         <thead>
                             <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                            <th class="py-3 px-6 text-left">
+                                    <a href="#" wire:click="sortBy('group')">
+                                        <div class="flex items-center">
+                                            <div>Group</div>
+                                            <x-icon-sort sortField="group" :sort-by="$sortBy" :sort-asc="$sortAsc" />
+                                        </div>
+                                    </a>
+                                </th>
                                 <th class="py-3 px-6 text-left">
                                     <a href="#" wire:click="sortBy('name')">
                                         <div class="flex items-center">
@@ -29,16 +37,7 @@
                                         </div>
                                     </a>
                                 </th>
-                                <th class="py-3 px-6 text-left">
-                                    <a href="#" wire:click="sortBy('email')">
-                                        <div class="flex items-center">
-                                            <div>Email</div>
-                                            <x-icon-sort sortField="email" :sort-by="$sortBy" :sort-asc="$sortAsc" />
-                                        </div>
-                                    </a>
-                                </th>
-                                <th class="py-3 px-6 text-center">Verified</th>
-                                <th class="py-3 px-6 text-center">Image</th>
+                                <th class="py-3 px-6 text-left">Code</th>
                                 <th class="py-3 px-6 text-center">Actions</th>
                             </tr>
                         </thead>
@@ -46,24 +45,19 @@
                             @foreach ($data as $item)
                                 <tr class="border-b border-gray-200 hover:bg-gray-100">
                                     <td class="py-3 px-6 text-left whitespace-nowrap">
+                                        {{ $item->group }}
+                                    </td>
+                                    <td class="py-3 px-6 text-left">
                                         {{ $item->name }}
                                     </td>
                                     <td class="py-3 px-6 text-left">
-                                        {{ $item->email }}
-                                    </td>
-                                    <td class="py-3 px-6 text-center">
-                                        {{ $item->emai_verified_at }}
-                                    </td>
-                                    <td class="py-3 px-6 text-center">
-                                        <span
-                                            class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">Active</span>
+                                        {{ $item->code }}
                                     </td>
                                     <td class="py-3 px-6 text-center">
                                         <div class="flex item-center justify-center">
-
                                             <div class="w-4 mr-2">
                                                 <a href="#" class="text-gray-700 hover:text-gray-400"
-                                                mode="edit" wire:click="$emitTo('user-manager.users-child', 'showEditForm',  {{ $item->id}});">
+                                                mode="edit" wire:click="$emitTo('user-manager.permissions-child', 'showEditForm',  {{ $item->id}});">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                         stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -74,7 +68,7 @@
                                             </div>
                                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                 <a href="#"  class="text-gray-700 hover:text-gray-400"
-                                                mode="delete" wire:click="$emitTo('user-manager.users-child', 'showDeleteForm',  {{ $item->id}});">
+                                                mode="delete" wire:click="$emitTo('user-manager.permissions-child', 'showDeleteForm',  {{ $item->id}});">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                         stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -94,5 +88,5 @@
             </div>
         </div>
     </div>
-    @livewire('user-manager.users-child')
+    @livewire('user-manager.permissions-child')
 </div>
