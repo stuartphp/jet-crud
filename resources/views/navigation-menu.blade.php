@@ -19,8 +19,8 @@
                         {{ __('Users Manager') }}
                         <x-slot name="children">
                             <a href="{{ route('user-manager.users') }}">Users</a>
-                            <span class="separator"></span>
                             <a href="{{ route('user-manager.roles') }}">Roles</a>
+                            <span class="separator"></span>
                             <a href="{{ route('user-manager.permissions') }}">Permissions</a>
                         </x-slot>
                     </x-jet-nav-link>

@@ -17,6 +17,7 @@ class PermissionsChild extends Component
     public $confirmingItemCreation = false;
     public $confirmingItemEdition = false;
     public $item;
+    public $message ='';
     public $parent = 'user-manager.permissions';
     protected $rules = [
         'item.name' => 'required',
@@ -40,7 +41,7 @@ class PermissionsChild extends Component
         $this->confirmingItemDeletion = false;
         $this->primaryKey = '';
         $this->reset(['item']);
-        $this->alert('Record Deleted');
+        $this->banner('Successfully Deletedd');
         $this->emitTo($this->parent, 'refresh');
     }
 
@@ -60,8 +61,7 @@ class PermissionsChild extends Component
             'code' => $this->item['code'],
         ]);
         $this->confirmingItemCreation = false;
-        //$this->alert('Record Created');
-        $this->emit('alert', ['type' => 'success', 'message' => 'Agent has been changed.']);
+        $this->banner('Successfully Created');
         $this->emitTo($this->parent, 'refresh');
     }
 
@@ -78,12 +78,13 @@ class PermissionsChild extends Component
         $this->item->save();
         $this->confirmingItemEdition = false;
         $this->primaryKey = '';
-        $this->alert('Record Updated');
+        $this->banner('Successfully Updated');
         $this->emitTo($this->parent, 'refresh');
     }
 
-    public function alert($message, $type="success")
+    public function banner(string $message, string $style = 'success')
     {
-        $this->dispatchBrowserEvent('alert', ['type' => $type,  'message' => $message]);
+        request()->session()->flash('flash.banner', $message);
+        request()->session()->flash('flash.bannerStyle', $style);
     }
 }

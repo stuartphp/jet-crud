@@ -9,10 +9,8 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        <link rel="stylesheet" href="{{ mix('css/app.css') }}?{{ time() }}">
         <link rel="stylesheet" href="{{ '/css/custom.css' }}?{{ time() }}">
 
         @livewireStyles
@@ -20,6 +18,7 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
+
         <x-jet-banner />
 
         <div class="min-h-screen bg-gray-100">
@@ -40,16 +39,12 @@
             </main>
         </div>
 
+
         @stack('modals')
 
         @livewireScripts
 
         @stack('scripts')
-        <script>
-	window.livewire.on('alert', param => {
-        toastr[param['type']](param['message']);
-    });
 
- </script>
     </body>
 </html>
