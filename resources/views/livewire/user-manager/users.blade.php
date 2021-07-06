@@ -60,10 +60,8 @@
                                     </td>
                                     <td class="py-3 px-6 text-center">
                                         <div class="flex item-center justify-center">
-
                                             <x-edit-button component='user-manager.users-child' id="{{ $item->id }}"/>
                                             <x-delete-button component='user-manager.users-child' id="{{ $item->id }}"/>
-                                
                                         </div>
                                     </td>
                                 </tr>

@@ -1,5 +1,5 @@
 <div>
-    <x-confirmation-modal wire:model="confirmingItemDeletion">
+    <x-confirmation-modal maxWidth="md" wire:model="confirmingItemDeletion">
         <x-slot name="title">Delete</x-slot>
         <x-slot name="content">Are you sure you want to delete this record?</x-slot>
         <x-slot name="footer">
@@ -12,14 +12,14 @@
         </x-slot>
     </x-confirmation-modal>
 
-    <x-dialog-modal wire:model="confirmingItemEdition">
+    <x-dialog-modal maxWidth="sm" wire:model="confirmingItemEdition">
         <x-slot name="title">
             Edit Record
         </x-slot>
         <x-slot name="content">
             <div class="mt-4">
                 <x-jet-label>Group</x-jet-label>
-                <x-jet-input class="block mt-1 w-1/2" type="text" wire:model.defer="item.group" />
+                <x-jet-input class="block mt-1 w-full" type="text" wire:model.defer="item.group" />
             </div>
             <div class="mt-4">
                 <x-jet-label>Name</x-jet-label>
@@ -33,7 +33,7 @@
             </div>
             <div class="mt-4">
                 <x-jet-label>Code</x-jet-label>
-                <x-jet-input class="block mt-1 w-1/2" type="text" wire:model.defer="item.code" />
+                <x-jet-input class="block mt-1 w-full" type="text" wire:model.defer="item.code" />
             </div>
         </x-slot>
         <x-slot name="footer">
