@@ -1,4 +1,4 @@
-<div class="px-2">
+<div>
     <header class="bg-white shadow">
         <div class="max-w-7xl mx-auto py-3 px-2 sm:px-4 lg:px-6">
         <div class="flex justify-between items-center">
@@ -14,7 +14,7 @@
         </div>
     </header>
 
-    <div class="overflow-x-auto mt-2">
+    <div class="overflow-x-auto">
         <div class="min-w-screen bg-gray-100 flex items-center justify-center bg-gray-100 font-sans overflow-hidden">
             <div class="w-full lg:w-5/6">
                 <div class="bg-white shadow-md rounded my-6">
