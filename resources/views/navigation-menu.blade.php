@@ -15,13 +15,29 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="#" :active="request()->is('user-manager/*')" :dropdown="true">
-                        {{ __('Users Manager') }}
+                    @can('users_management_access')
+                    <x-jet-nav-link href="#" :active="request()->is('users-management/*')" :dropdown="true">
+                        {{ __('Users Management') }}
                         <x-slot name="children">
-                            <a href="{{ route('user-manager.users') }}">Users</a>
-                            <a href="{{ route('user-manager.roles') }}">Roles</a>
+                            @can('users_access')
+                            <a href="{{ route('users-management.users') }}">Users</a>
+                            @endcan
+                            @can('roles_access')
+                            <a href="{{ route('users-management.roles') }}">Roles</a>
+                            @endcan
+                            @can('permissions_access')
                             <span class="separator"></span>
-                            <a href="{{ route('user-manager.permissions') }}">Permissions</a>
+                            <a href="{{ route('users-management.permissions') }}">Permissions</a>
+                            @endcan
+                        </x-slot>
+                    </x-jet-nav-link>
+                    @endcan
+                    <x-jet-nav-link href="#" :active="request()->is('products/*')" :dropdown="true">
+                        {{ __('Products') }}
+                        <x-slot name="children">
+                            <a href="{{ route('products.list') }}">List</a>
+                            <a href="{{ route('products.categories') }}">Categories</a>
+                            <a href="{{ route('products.units') }}">Units</a>
                         </x-slot>
                     </x-jet-nav-link>
                 </div>

@@ -18,22 +18,8 @@
         </x-slot>
         <x-slot name="content">
             <div class="mt-4">
-                <x-jet-label>Group</x-jet-label>
-                <x-jet-input class="block mt-1 w-full" type="text" wire:model.defer="item.group" />
-            </div>
-            <div class="mt-4">
-                <x-jet-label>Name</x-jet-label>
-                <select class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" wire:model.defer="item.name" >
-                    <option value="">{{ __('Please Select') }}</option>
-                    <option value="Create">Create</option>
-                    <option value="Read">Read</option>
-                    <option value="Update">Update</option>
-                    <option value="Delete">Delete</option>
-                </select>
-            </div>
-            <div class="mt-4">
-                <x-jet-label>Code</x-jet-label>
-                <x-jet-input class="block mt-1 w-full" type="text" wire:model.defer="item.code" />
+                <x-jet-label>Title</x-jet-label>
+                <x-jet-input class="block mt-1 w-full" type="text" wire:model.defer="item.title" />
             </div>
         </x-slot>
         <x-slot name="footer">
@@ -47,23 +33,9 @@
             Add Record
         </x-slot>
         <x-slot name="content">
-        <div class="mt-4">
-                <x-jet-label>Group</x-jet-label>
-                <x-jet-input class="block mt-1 w-full" type="text" wire:model.defer="item.group" />
-            </div>
             <div class="mt-4">
-                <x-jet-label>Name</x-jet-label>
-                <select class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" wire:model.defer="item.name" >
-                    <option value="">{{ __('Please Select') }}</option>
-                    <option value="Create">Create</option>
-                    <option value="Read">Read</option>
-                    <option value="Update">Update</option>
-                    <option value="Delete">Delete</option>
-                </select>
-            </div>
-            <div class="mt-4">
-                <x-jet-label>Code</x-jet-label>
-                <x-jet-input class="block mt-1 w-full" type="text" wire:model.defer="item.code" />
+                <x-jet-label>Title</x-jet-label>
+                <x-jet-input class="block mt-1 w-full" type="text" wire:model.defer="item.title" />
             </div>
         </x-slot>
         <x-slot name="footer">

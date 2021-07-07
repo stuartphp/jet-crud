@@ -28,6 +28,7 @@ class Users extends Component
     public function render()
     {
         $data = $this->query()
+            ->with('roles')
             ->when($this->searchTerm, function($q){
                 $q->where('name', 'like', '%'.$this->searchTerm.'%')
                     ->orWhere('email', 'like', '%'.$this->searchTerm.'%');

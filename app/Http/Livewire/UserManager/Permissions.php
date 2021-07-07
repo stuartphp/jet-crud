@@ -28,6 +28,10 @@ class Permissions extends Component
     public function render()
     {
         $data= $this->query()
+            
+            ->when($this->searchTerm, function($q){
+            $q->where('title', 'like', '%'.$this->searchTerm.'%');
+        })
             ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
             ->paginate($this->pageSize);
         return view('livewire.user-manager.permissions', ['data'=>$data]);
@@ -45,4 +49,5 @@ class Permissions extends Component
     {
         return Permission::query();
     }
+
 }

@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Livewire\UserManager;
+namespace App\Http\Livewire\Products;
 
+use App\Http\Controllers\Admin\ProductsController;
 use Livewire\Component;
+use App\Models\ProductCategory;
 use Livewire\WithPagination;
-use App\Models\Role;
 
-class Roles extends Component
+class Categories extends Component
 {
     use WithPagination;
 
     protected $listeners = ['refresh' => '$refresh'];
-    public $sortBy = 'title';
+    public $sortBy = 'name';
     public $searchTerm='';
     public $sortAsc = true;
     public $pageSize = 10;
@@ -27,12 +28,17 @@ class Roles extends Component
 
     public function render()
     {
-        $data= $this->query()
-            ->with(['permissions'])
+        $data = $this->query()
+            ->when($this->searchTerm, function($q){
+                $q->where('name', 'like', '%'.$this->searchTerm.'%')
+                    ->orWhere('slug', 'like', '%'.$this->searchTerm.'%');
+            })
             ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
             ->paginate($this->pageSize);
-        return view('livewire.user-manager.roles', ['data'=>$data]);
+
+        return view('livewire.products.categories', ['data'=>$data,'categories'=>$this->getCategories()]);
     }
+
     public function sortBy($field)
     {
         if ($field == $this->sortBy) {
@@ -43,6 +49,10 @@ class Roles extends Component
 
     public function query()
     {
-        return Role::query();
+        return ProductCategory::query();
+    }
+    public function getCategories()
+    {
+        return ProductCategory::pluck('name', 'id')->toArray();
     }
 }

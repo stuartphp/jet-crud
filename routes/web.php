@@ -19,11 +19,16 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', function(){ return view('dashboard'); })->name('dashboard');
-    Route::prefix('/user-manager')->group(function(){
-        Route::get('users', [App\Http\Controllers\Admin\UserManagerController::class, 'users'])->name('user-manager.users');
-        Route::get('roles', [App\Http\Controllers\Admin\UserManagerController::class, 'roles'])->name('user-manager.roles');
-        Route::get('permissions', [App\Http\Controllers\Admin\UserManagerController::class, 'permissions'])->name('user-manager.permissions');
+    Route::prefix('/users-management')->group(function(){
+        Route::get('users', [App\Http\Controllers\Admin\UserManagerController::class, 'users'])->name('users-management.users');
+        Route::get('roles', [App\Http\Controllers\Admin\UserManagerController::class, 'roles'])->name('users-management.roles');
+        Route::get('permissions', [App\Http\Controllers\Admin\UserManagerController::class, 'permissions'])->name('users-management.permissions');
 
+    });
+    Route::prefix('/products')->group(function () {
+        Route::get('list', [App\Http\Controllers\Admin\ProductsController::class, 'list'])->name('products.list');
+        Route::get('categories', [App\Http\Controllers\Admin\ProductsController::class, 'categories'])->name('products.categories');
+        Route::get('units', [App\Http\Controllers\Admin\ProductsController::class, 'units'])->name('products.units');
     });
 });
 

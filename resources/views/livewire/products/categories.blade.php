@@ -2,18 +2,16 @@
     <header class="bg-white shadow">
         <div class="max-w-7xl mx-auto py-3 px-2 sm:px-4 lg:px-6">
         <div class="flex justify-between items-center">
-
             <div class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Users') }}
+                {{ __('Categories') }}
             </div>
-            <x-secondary-button mode="add" wire:click="$emitTo('user-manager.users-child', 'showCreateForm');">Create</x-secondary-button>
+            <x-secondary-button mode="add" wire:click="$emitTo('products.categories-child', 'showCreateForm');">Create</x-secondary-button>
             <div class="flex">
                 <x-page-size/>
                 <x-input type="search" wire:model.debounce.300ms="searchTerm" class="ml-3 bg-purple-white shadow rounded border-0" placeholder="Search..."/>
             </div>
         </div>
     </header>
-
     <div class="overflow-x-auto">
         <div class="min-w-screen bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
             <div class="w-full lg:w-5/6">
@@ -29,16 +27,16 @@
                                         </div>
                                     </a>
                                 </th>
+                                <th class="py-3 px-6 text-left">Parent</th>
                                 <th class="py-3 px-6 text-left">
-                                    <a href="#" wire:click="sortBy('email')">
+                                    <a href="#" wire:click="sortBy('slug')">
                                         <div class="flex items-center">
-                                            <div>Email</div>
-                                            <x-icon-sort sortField="email" :sort-by="$sortBy" :sort-asc="$sortAsc" />
+                                            <div>Slug</div>
+                                            <x-icon-sort sortField="slug" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                                         </div>
                                     </a>
                                 </th>
-                                <th class="py-3 px-6 text-center">Verified</th>
-                                <th class="py-3 px-6 text-center">Role</th>
+                                <th class="py-3 px-6 text-left">Active</th>
                                 <th class="py-3 px-6 text-center">Actions</th>
                             </tr>
                         </thead>
@@ -49,21 +47,18 @@
                                         {{ $item->name }}
                                     </td>
                                     <td class="py-3 px-6 text-left">
-                                        {{ $item->email }}
+                                        {{ ($item->parent_id>0) ? $categories[$item->parent_id]:'' }}
                                     </td>
-                                    <td class="py-3 px-6 text-center">
-                                        {{ $item->emai_verified_at }}
+                                    <td class="py-3 px-6 text-left">
+                                        {{ $item->slug }}
                                     </td>
-                                    <td class="py-3 px-6 text-center">
-                                        @foreach ($item->roles as $role )
-                                        <span
-                                            class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">{{ $role->title }}</span>
-                                        @endforeach
+                                    <td class="py-3 px-6 text-left">
+                                    {{ ($item->is_active==1) ? 'Yes' : 'No' }}
                                     </td>
                                     <td class="py-3 px-6 text-center">
                                         <div class="flex item-center justify-center">
-                                            <x-edit-button component='user-manager.users-child' id="{{ $item->id }}"/>
-                                            <x-delete-button component='user-manager.users-child' id="{{ $item->id }}"/>
+                                            <x-edit-button component='products.categories-child' id="{{ $item->id }}"/>
+                                            <x-delete-button component='products.categories-child' id="{{ $item->id }}"/>
                                         </div>
                                     </td>
                                 </tr>
@@ -75,5 +70,5 @@
             </div>
         </div>
     </div>
-    @livewire('user-manager.users-child')
+    @livewire('products.categories-child')
 </div>
