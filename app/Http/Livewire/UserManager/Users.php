@@ -14,8 +14,13 @@ class Users extends Component
     public $sortBy = 'name';
     public $searchTerm='';
     public $sortAsc = true;
+    public $pageSize = 10;
 
     public function updatedSearchTerm()
+    {
+        $this->resetPage();
+    }
+    public function updatedPageSize()
     {
         $this->resetPage();
     }
@@ -28,7 +33,7 @@ class Users extends Component
                     ->orWhere('email', 'like', '%'.$this->searchTerm.'%');
             })
             ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
-            ->paginate(10);
+            ->paginate($this->pageSize);
 
         return view('livewire.user-manager.users', ['data'=>$data]);
     }
