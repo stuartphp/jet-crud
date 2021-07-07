@@ -1,43 +1,37 @@
 <div>
     <header class="bg-white shadow">
         <div class="max-w-7xl mx-auto py-3 px-2 sm:px-4 lg:px-6">
-        <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center">
 
-            <div class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Permissions') }}
+                <div class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ __('Permissions') }}
+                </div>
+                <x-secondary-button mode="add"
+                    wire:click="$emitTo('user-manager.permissions-child', 'showCreateForm');">Create
+                </x-secondary-button>
+                <div class="flex">
+                    <x-page-size />
+                    <x-input type="search" wire:model.debounce.300ms="searchTerm"
+                        class="ml-3 bg-purple-white shadow rounded border-0" placeholder="Search..." />
+                </div>
             </div>
-            <x-secondary-button mode="add" wire:click="$emitTo('user-manager.permissions-child', 'showCreateForm');">Create</x-secondary-button>
-            <div>
-<x-input type="search" wire:model.debounce.300ms="searchTerm" class="bg-purple-white shadow rounded border-0" placeholder="Search..."/>
-
-            </div>
-        </div>
     </header>
 
     <div class="overflow-x-auto">
-        <div class="min-w-screen bg-gray-100 flex items-center justify-center bg-gray-100 font-sans overflow-hidden">
-            <div class="w-full lg:w-5/6">
+        <div class="min-w-screen bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
+            <div class="w-full lg:w-2/6">
                 <div class="bg-white shadow-md rounded my-6">
                     <table class="min-w-max w-full table-auto">
                         <thead>
                             <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                            <th class="py-3 px-6 text-left">
-                                    <a href="#" wire:click="sortBy('group')">
-                                        <div class="flex items-center">
-                                            <div>Group</div>
-                                            <x-icon-sort sortField="group" :sort-by="$sortBy" :sort-asc="$sortAsc" />
-                                        </div>
-                                    </a>
-                                </th>
                                 <th class="py-3 px-6 text-left">
-                                    <a href="#" wire:click="sortBy('name')">
+                                    <a href="#" wire:click="sortBy('title')">
                                         <div class="flex items-center">
-                                            <div>Name</div>
-                                            <x-icon-sort sortField="name" :sort-by="$sortBy" :sort-asc="$sortAsc" />
+                                            <div>Title</div>
+                                            <x-icon-sort sortField="title" :sort-by="$sortBy" :sort-asc="$sortAsc" />
                                         </div>
                                     </a>
                                 </th>
-                                <th class="py-3 px-6 text-left">Code</th>
                                 <th class="py-3 px-6 text-center">Actions</th>
                             </tr>
                         </thead>
@@ -45,18 +39,14 @@
                             @foreach ($data as $item)
                                 <tr class="border-b border-gray-200 hover:bg-gray-100">
                                     <td class="py-3 px-6 text-left whitespace-nowrap">
-                                        {{ $item->group }}
-                                    </td>
-                                    <td class="py-3 px-6 text-left">
-                                        {{ $item->name }}
-                                    </td>
-                                    <td class="py-3 px-6 text-left">
-                                        {{ $item->code }}
+                                        {{ $item->title }}
                                     </td>
                                     <td class="py-3 px-6 text-center">
                                         <div class="flex item-center justify-center">
-                                            <x-edit-button component='user-manager.permissions-child' id="{{ $item->id }}"/>
-                                            <x-delete-button component='user-manager.permissions-child' id="{{ $item->id }}"/>
+                                            <x-edit-button component='user-manager.permissions-child'
+                                                id="{{ $item->id }}" />
+                                            <x-delete-button component='user-manager.permissions-child'
+                                                id="{{ $item->id }}" />
                                         </div>
                                     </td>
                                 </tr>

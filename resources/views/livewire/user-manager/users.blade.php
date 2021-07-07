@@ -7,15 +7,15 @@
                 {{ __('Users') }}
             </div>
             <x-secondary-button mode="add" wire:click="$emitTo('user-manager.users-child', 'showCreateForm');">Create</x-secondary-button>
-            <div>
-<x-input type="search" wire:model.debounce.300ms="searchTerm" class="bg-purple-white shadow rounded border-0" placeholder="Search..."/>
-
+            <div class="flex">
+                <x-page-size/>
+                <x-input type="search" wire:model.debounce.300ms="searchTerm" class="ml-3 bg-purple-white shadow rounded border-0" placeholder="Search..."/>
             </div>
         </div>
     </header>
 
     <div class="overflow-x-auto">
-        <div class="min-w-screen bg-gray-100 flex items-center justify-center bg-gray-100 font-sans overflow-hidden">
+        <div class="min-w-screen bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
             <div class="w-full lg:w-5/6">
                 <div class="bg-white shadow-md rounded my-4">
                     <table class="min-w-max w-full table-auto">

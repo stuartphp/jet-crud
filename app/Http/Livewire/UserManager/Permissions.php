@@ -11,11 +11,16 @@ class Permissions extends Component
     use WithPagination;
 
     protected $listeners = ['refresh' => '$refresh'];
-    public $sortBy = 'group';
+    public $sortBy = 'title';
     public $searchTerm='';
     public $sortAsc = true;
+    public $pageSize = 10;
 
     public function updatedSearchTerm()
+    {
+        $this->resetPage();
+    }
+    public function updatedPageSize()
     {
         $this->resetPage();
     }
@@ -24,7 +29,7 @@ class Permissions extends Component
     {
         $data= $this->query()
             ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
-            ->paginate(10);
+            ->paginate($this->pageSize);
         return view('livewire.user-manager.permissions', ['data'=>$data]);
     }
 

@@ -17,6 +17,7 @@ class UsersChild extends Component
     public $confirmingItemCreation = false;
     public $confirmingItemEdition = false;
     public $item;
+    
     public $parent = 'user-manager.users';
     protected $rules = [
         'item.name' => 'required',
