@@ -22,6 +22,14 @@
                 <x-jet-input class="block mt-1 w-full" type="text" wire:model.defer="item.name" />
             </div>
             <div class="mt-4">
+                <x-jet-label>Slug</x-jet-label>
+                <x-jet-input class="block mt-1 w-full" type="text" wire:model.defer="item.slug" />
+                @error('item.slug')
+                    <x-error-message>{{ $message }}</x-error-message>
+                @enderror
+            </div>
+
+            <div class="mt-4">
                 <x-jet-label>Parent</x-jet-label>
                 <select class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" wire:model.defer="item.parent_id" >
                     <option value="">{{ __('Please Select') }}</option>
@@ -58,7 +66,17 @@
         <x-slot name="content">
             <div class="mt-4">
                 <x-jet-label>Name</x-jet-label>
-                <x-jet-input class="block mt-1 w-full" type="text" wire:model.defer="item.name" />
+                <x-jet-input class="block mt-1 w-full" type="text" wire:model="item.name" />
+                @error('item.name')
+                    <x-error-message>{{ $message }}</x-error-message>
+                @enderror
+            </div>
+            <div class="mt-4">
+                <x-jet-label>Slug</x-jet-label>
+                <x-jet-input class="block mt-1 w-full" type="text" wire:model.defer="item.slug" />
+                @error('item.slug')
+                    <x-error-message>{{ $message }}</x-error-message>
+                @enderror
             </div>
             <div class="mt-4">
                 <x-jet-label>Parent</x-jet-label>

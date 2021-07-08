@@ -32,6 +32,7 @@
                         </x-slot>
                     </x-jet-nav-link>
                     @endcan
+                    @can('products_access')
                     <x-jet-nav-link href="#" :active="request()->is('products/*')" :dropdown="true">
                         {{ __('Products') }}
                         <x-slot name="children">
@@ -40,6 +41,7 @@
                             <a href="{{ route('products.units') }}">Units</a>
                         </x-slot>
                     </x-jet-nav-link>
+                    @endcan
                 </div>
             </div>
 

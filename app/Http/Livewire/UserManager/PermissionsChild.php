@@ -19,15 +19,12 @@ class PermissionsChild extends Component
     public $item;
     public $message ='';
     public $parent = 'user-manager.permissions';
-    
+
     protected $rules = [
         'item.title' => 'required'
     ];
 
-    public function render()
-    {
-        return view('livewire.user-manager.permissions-child');
-    }
+
     public function showDeleteForm($id)
     {
         $this->confirmingItemDeletion = true;
@@ -40,7 +37,7 @@ class PermissionsChild extends Component
         $this->confirmingItemDeletion = false;
         $this->primaryKey = '';
         $this->reset(['item']);
-        $this->banner('Successfully Deletedd');
+        $this->dispatchBrowserEvent('alert', ['type' => 'success',  'message' => 'Successfully Deleted']);
         $this->emitTo($this->parent, 'refresh');
     }
 
@@ -58,7 +55,7 @@ class PermissionsChild extends Component
             'title' => $this->item['title']
         ]);
         $this->confirmingItemCreation = false;
-        $this->banner('Successfully Created');
+        $this->dispatchBrowserEvent('alert', ['type' => 'success',  'message' => 'Successfully Created']);
         $this->emitTo($this->parent, 'refresh');
     }
 
@@ -75,13 +72,11 @@ class PermissionsChild extends Component
         $this->item->save();
         $this->confirmingItemEdition = false;
         $this->primaryKey = '';
-        $this->banner('Successfully Updated');
+        $this->dispatchBrowserEvent('alert', ['type' => 'success',  'message' => 'Successfully Updated']);
         $this->emitTo($this->parent, 'refresh');
     }
-
-    public function banner(string $message, string $style = 'success')
+    public function render()
     {
-        request()->session()->flash('flash.banner', $message);
-        request()->session()->flash('flash.bannerStyle', $style);
+        return view('livewire.user-manager.permissions-child');
     }
 }
