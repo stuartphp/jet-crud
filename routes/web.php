@@ -21,14 +21,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', function(){ return view('dashboard'); })->name('dashboard');
     Route::prefix('/users-management')->group(function(){
         Route::get('users', [App\Http\Controllers\Admin\UserManagerController::class, 'users'])->name('users-management.users');
-        Route::get('roles', [App\Http\Controllers\Admin\UserManagerController::class, 'roles'])->name('users-management.roles');
+        Route::resource('roles', App\Http\Controllers\Admin\RolesController::class);
         Route::get('permissions', [App\Http\Controllers\Admin\UserManagerController::class, 'permissions'])->name('users-management.permissions');
 
     });
-    Route::prefix('/products')->group(function () {
-        Route::get('list', [App\Http\Controllers\Admin\ProductsController::class, 'list'])->name('products.list');
-        Route::get('categories', [App\Http\Controllers\Admin\ProductsController::class, 'categories'])->name('products.categories');
-        Route::get('units', [App\Http\Controllers\Admin\ProductsController::class, 'units'])->name('products.units');
+    Route::prefix('/products')->name('products.')->group(function () {
+        Route::resource('list', App\Http\Controllers\Admin\ProductsController::class);
+        Route::get('categories', [App\Http\Controllers\Admin\ProductsController::class, 'categories'])->name('categories');
+        Route::get('units', [App\Http\Controllers\Admin\ProductsController::class, 'units'])->name('units');
     });
 });
 

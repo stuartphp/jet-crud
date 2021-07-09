@@ -1,18 +1,8 @@
 <div>
-    <header class="bg-white shadow">
-        <div class="max-w-7xl mx-auto py-3 px-2 sm:px-4 lg:px-6">
-        <div class="flex justify-between items-center">
-
-            <div class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Users') }}
-            </div>
-            <x-secondary-button mode="add" wire:click="$emitTo('user-manager.users-child', 'showCreateForm');">Create</x-secondary-button>
-            <div class="flex">
-                <x-page-size/>
-                <x-input type="search" wire:model.debounce.300ms="searchTerm" class="ml-3 bg-purple-white shadow rounded border-0" placeholder="Search..."/>
-            </div>
-        </div>
-    </header>
+    <x-crud-header>
+        <x-slot name="title"><a href="{{ route('users-management.users') }}">{{ __('Users') }}</a></x-slot>
+        <x-slot name="link"><x-secondary-button mode="add" wire:click="$emitTo('user-manager.users-child', 'showCreateForm');">Create</x-secondary-button></x-slot>
+    </x-crud-header>
 
     <div class="overflow-x-auto">
         <div class="min-w-screen bg-gray-100 flex items-center justify-center font-sans overflow-hidden">

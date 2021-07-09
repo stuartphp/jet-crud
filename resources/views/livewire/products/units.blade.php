@@ -1,11 +1,11 @@
 <div>
     <x-crud-header>
-        <x-slot name="title"><a href="{{ route('products.categories') }}">{{ __('Categories') }}</a></x-slot>
-        <x-slot name="link"><x-secondary-button mode="add" wire:click="$emitTo('products.categories-child', 'showCreateForm');">Create</x-secondary-button></x-slot>
+        <x-slot name="title"><a href="{{ route('products.units') }}">{{ __('Units') }}</a></x-slot>
+        <x-slot name="link"><x-secondary-button mode="add" wire:click="$emitTo('products.units-child', 'showCreateForm');">Create</x-secondary-button></x-slot>
     </x-crud-header>
     <div class="overflow-x-auto">
         <div class="min-w-screen bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
-            <div class="w-full lg:w-5/6">
+            <div class="w-full lg:w-2/6">
                 <div class="bg-white shadow-md rounded my-4">
                     <table class="w-full">
                         <thead>
@@ -18,16 +18,6 @@
                                         </div>
                                     </a>
                                 </th>
-                                <th class="py-3 px-6 text-left">Parent</th>
-                                <th class="py-3 px-6 text-left">
-                                    <a href="#" wire:click="sortBy('slug')">
-                                        <div class="flex items-center">
-                                            <div>Slug</div>
-                                            <x-icon-sort sortField="slug" :sort-by="$sortBy" :sort-asc="$sortAsc" />
-                                        </div>
-                                    </a>
-                                </th>
-                                <th class="py-3 px-6 text-left">Active</th>
                                 <th class="py-3 px-6 text-center">Actions</th>
                             </tr>
                         </thead>
@@ -37,19 +27,10 @@
                                     <td class="py-3 px-6 text-left whitespace-nowrap">
                                         {{ $item->name }}
                                     </td>
-                                    <td class="py-3 px-6 text-left">
-                                        {{ ($item->parent_id>0) ? $categories[$item->parent_id]:'' }}
-                                    </td>
-                                    <td class="py-3 px-6 text-left">
-                                        {{ $item->slug }}
-                                    </td>
-                                    <td class="py-3 px-6 text-left">
-                                    {{ ($item->is_active==1) ? 'Yes' : 'No' }}
-                                    </td>
                                     <td class="py-3 px-6 text-center">
                                         <div class="flex item-center justify-center">
-                                            <x-edit-button component='products.categories-child' id="{{ $item->id }}"/>
-                                            <x-delete-button component='products.categories-child' id="{{ $item->id }}"/>
+                                            <x-edit-button component='products.units-child' id="{{ $item->id }}"/>
+                                            <x-delete-button component='products.units-child' id="{{ $item->id }}"/>
                                         </div>
                                     </td>
                                 </tr>
@@ -61,5 +42,5 @@
             </div>
         </div>
     </div>
-    @livewire('products.categories-child')
+    @livewire('products.units-child')
 </div>

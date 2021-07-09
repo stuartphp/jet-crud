@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\UserManager;
+namespace App\Http\Livewire\Products;
 
 use Livewire\Component;
-use App\Models\Permission;
+use App\Models\ProductUnit;
 
-class PermissionsChild extends Component
+class UnitsChild extends Component
 {
     protected $listeners = [
         'showDeleteForm',
@@ -18,12 +18,20 @@ class PermissionsChild extends Component
     public $confirmingItemEdition = false;
     public $item;
     public $message ='';
-    public $parent = 'user-manager.permissions';
+    public $parent = 'products.categories';
 
-    protected $rules = [
-        'item.title' => 'required'
-    ];
+    public function rules(){
+        return [
+            'item.name' => 'required',
+        ];
+    }
 
+    public function validationAttributes()
+    {
+        return [
+            'item.name' => 'Name',
+        ];
+    }
 
     public function showDeleteForm($id)
     {
@@ -33,7 +41,7 @@ class PermissionsChild extends Component
 
     public function deleteItem()
     {
-        Permission::destroy($this->primaryKey);
+        ProductUnit::destroy($this->primaryKey);
         $this->confirmingItemDeletion = false;
         $this->primaryKey = '';
         $this->reset(['item']);
@@ -51,15 +59,15 @@ class PermissionsChild extends Component
     public function createItem()
     {
         $this->validate();
-        Permission::create([
-            'title' => $this->item['title']
+        ProductUnit::create([
+            'name' => $this->item['name'],
         ]);
         $this->confirmingItemCreation = false;
         $this->dispatchBrowserEvent('alert', ['type' => 'success',  'message' => 'Successfully Created']);
         $this->emitTo($this->parent, 'refresh');
     }
 
-    public function showEditForm(Permission $item)
+    public function showEditForm(ProductUnit $item)
     {
         $this->resetErrorBag();
         $this->item = $item;
@@ -75,8 +83,9 @@ class PermissionsChild extends Component
         $this->dispatchBrowserEvent('alert', ['type' => 'success',  'message' => 'Successfully Updated']);
         $this->emitTo($this->parent, 'refresh');
     }
+
     public function render()
     {
-        return view('livewire.user-manager.permissions-child');
+        return view('livewire.products.units-child');
     }
 }

@@ -10,17 +10,16 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
         <!-- Styles -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="{{ mix('css/app.css') }}?{{ time() }}">
         <link rel="stylesheet" href="{{ '/css/custom.css' }}?{{ time() }}">
 
         @livewireStyles
-        <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>
+
     </head>
     <body class="font-sans antialiased">
 
         <x-jet-banner />
-
         <div class="min-h-screen bg-gray-100">
             @livewire('navigation-menu')
 
@@ -41,10 +40,22 @@
 
 
         @stack('modals')
-
+        <script src="http://code.jquery.com/jquery-1.9.0rc1.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- Scripts -->
+        <script src="{{ mix('js/app.js') }}" defer></script>
         @livewireScripts
 
         @stack('scripts')
-
+<script>
+   
+ window.addEventListener('alert', event => {
+    toastr[event.detail.type](event.detail.message, event.detail.title ?? '')
+    toastr.options = {
+        "closeButton": true,
+        "progressBar": true,
+    }
+});
+</script>
     </body>
 </html>

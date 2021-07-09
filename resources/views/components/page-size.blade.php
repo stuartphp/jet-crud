@@ -1,5 +1,4 @@
-<select class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block w-full text-sm"
-wire:model="pageSize" >
+<select {{ $attributes->merge(['class' => 'border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block text-sm']) }} wire:model="pageSize" >
     <option value="10">10</option>
     <option value="15">15</option>
     <option value="20">20</option>

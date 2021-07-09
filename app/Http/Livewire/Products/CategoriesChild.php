@@ -31,12 +31,30 @@ class CategoriesChild extends Component
         ];
     }
 
+    public function validationAttributes()
+    {
+        return [
+            'item.name' => 'Name',
+            'item.slug' => 'Slug',
+            'item.parent_id' => 'required',
+        ];
+    }
+
     public function render()
     {
         return view('livewire.products.categories-child',[
             'categories'=>$this->getCategories()
         ]);
     }
+
+    public function updated($name, $value)
+    {
+        if($name == 'item.name')
+        {
+            $this->item['slug']=Str::slug($value);
+        }
+    }
+
     public function showDeleteForm($id)
     {
         $this->confirmingItemDeletion = true;
@@ -49,7 +67,7 @@ class CategoriesChild extends Component
         $this->confirmingItemDeletion = false;
         $this->primaryKey = '';
         $this->reset(['item']);
-        $this->banner('Successfully Deletedd');
+        $this->dispatchBrowserEvent('alert', ['type' => 'success',  'message' => 'Successfully Deleted']);
         $this->emitTo($this->parent, 'refresh');
     }
 
@@ -70,7 +88,7 @@ class CategoriesChild extends Component
             'is_active' => $this->item['is_active'],
         ]);
         $this->confirmingItemCreation = false;
-        $this->banner('Successfully Created');
+        $this->dispatchBrowserEvent('alert', ['type' => 'success',  'message' => 'Successfully Created']);
         $this->emitTo($this->parent, 'refresh');
     }
 
@@ -87,15 +105,10 @@ class CategoriesChild extends Component
         $this->item->save();
         $this->confirmingItemEdition = false;
         $this->primaryKey = '';
-        $this->banner('Successfully Updated');
+        $this->dispatchBrowserEvent('alert', ['type' => 'success',  'message' => 'Successfully Updated']);
         $this->emitTo($this->parent, 'refresh');
     }
 
-    public function banner(string $message, string $style = 'success')
-    {
-        request()->session()->flash('flash.banner', $message);
-        request()->session()->flash('flash.bannerStyle', $style);
-    }
     public function getCategories()
     {
         return ProductCategory::orderBy('parent_id')->orderBy('name')->get();
