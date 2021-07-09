@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->char('code', 20);
             $table->string('name');
+            $table->string('slug')->unique();
             $table->string('short_description');
             $table->text('description');
             $table->string('keywords');

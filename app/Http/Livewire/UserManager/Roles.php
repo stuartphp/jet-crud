@@ -15,6 +15,8 @@ class Roles extends Component
     public $searchTerm='';
     public $sortAsc = true;
     public $pageSize = 10;
+    public $confirmingItemDeletion = false;
+    public $primaryKey=0;
 
     public function updatedSearchTerm()
     {
@@ -29,6 +31,9 @@ class Roles extends Component
     {
         $data= $this->query()
             ->with(['permissions'])
+            ->when($this->searchTerm, function($q){
+                $q->where('title', 'like', '%'.$this->searchTerm.'%');
+            })
             ->orderBy($this->sortBy, $this->sortAsc ? 'ASC' : 'DESC')
             ->paginate($this->pageSize);
         return view('livewire.user-manager.roles', ['data'=>$data]);
@@ -44,5 +49,11 @@ class Roles extends Component
     public function query()
     {
         return Role::query();
+    }
+
+    public function showDeleteForm($id)
+    {
+        $this->primaryKey = $id;
+        $this->confirmingItemDeletion = true;
     }
 }

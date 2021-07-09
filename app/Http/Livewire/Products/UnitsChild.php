@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\UserManager;
+namespace App\Http\Livewire\Products;
 
 use Livewire\Component;
-use App\Models\Role;
-use App\Models\Permission;
+use App\Models\ProductUnit;
 
-class RolesChild extends Component
+class UnitsChild extends Component
 {
     protected $listeners = [
         'showDeleteForm',
@@ -19,14 +18,20 @@ class RolesChild extends Component
     public $confirmingItemEdition = false;
     public $item;
     public $message ='';
-    public $parent = 'user-manager.roles';
-    public $set_permissions=[];
+    public $parent = 'products.categories';
 
-    protected $rules = [
-        'item.title' => 'required',
-        'item.permissions.*' => 'required'
-    ];
+    public function rules(){
+        return [
+            'item.name' => 'required',
+        ];
+    }
 
+    public function validationAttributes()
+    {
+        return [
+            'item.name' => 'Name',
+        ];
+    }
 
     public function showDeleteForm($id)
     {
@@ -36,7 +41,7 @@ class RolesChild extends Component
 
     public function deleteItem()
     {
-        Role::destroy($this->primaryKey);
+        ProductUnit::destroy($this->primaryKey);
         $this->confirmingItemDeletion = false;
         $this->primaryKey = '';
         $this->reset(['item']);
@@ -54,42 +59,25 @@ class RolesChild extends Component
     public function createItem()
     {
         $this->validate();
-        Role::create([
-            'title' => $this->item['title']
+        ProductUnit::create([
+            'name' => $this->item['name'],
         ]);
         $this->confirmingItemCreation = false;
         $this->dispatchBrowserEvent('alert', ['type' => 'success',  'message' => 'Successfully Created']);
         $this->emitTo($this->parent, 'refresh');
     }
 
-    public function showEditForm(Role $item)
+    public function showEditForm(ProductUnit $item)
     {
         $this->resetErrorBag();
-        $this->item = $item->load('permissions');
-        // $val = $this->item['permissions'];
-        // $p=[];
-        // $this->item['permissions']=[];
-        // foreach($val as $v)
-        // {
-        //     $p[]=$v->id;
-        // }
-        // $this->item['permissions']=$p;
-        //dd($this->item['permissions']);
-        // $val = $item->load('permissions');
-        // foreach($val as $v)
-        // {
-        //     $d[]=$v->pivot_permission_id;
-        // }
-        // dd($d);
+        $this->item = $item;
         $this->confirmingItemEdition = true;
     }
 
     public function editItem()
     {
         $this->validate();
-        dd($this->item['permissions']);
-        $this->item->update(['title'=>$this->item['title']])->save();
-        $this->item->permissions()->sync($this->item['permissions'],[]);
+        $this->item->save();
         $this->confirmingItemEdition = false;
         $this->primaryKey = '';
         $this->dispatchBrowserEvent('alert', ['type' => 'success',  'message' => 'Successfully Updated']);
@@ -98,6 +86,6 @@ class RolesChild extends Component
 
     public function render()
     {
-        return view('livewire.user-manager.roles-child', ['permissions'=>Permission::orderBy('title', 'asc')->pluck('title', 'id')->toArray()]);
+        return view('livewire.products.units-child');
     }
 }

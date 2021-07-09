@@ -23,7 +23,7 @@
                             <a href="{{ route('users-management.users') }}">Users</a>
                             @endcan
                             @can('roles_access')
-                            <a href="{{ route('users-management.roles') }}">Roles</a>
+                            <a href="{{ route('roles.index') }}">Roles</a>
                             @endcan
                             @can('permissions_access')
                             <span class="separator"></span>
@@ -36,9 +36,15 @@
                     <x-jet-nav-link href="#" :active="request()->is('products/*')" :dropdown="true">
                         {{ __('Products') }}
                         <x-slot name="children">
-                            <a href="{{ route('products.list') }}">List</a>
-                            <a href="{{ route('products.categories') }}">Categories</a>
-                            <a href="{{ route('products.units') }}">Units</a>
+                            @can('products_access')
+                                <a href="{{ route('products.list.index') }}">List</a>
+                            @endcan
+                            @can('categories_access')
+                                <a href="{{ route('products.categories') }}">Categories</a>
+                            @endcan
+                            @can('units_access')
+                                <a href="{{ route('products.units') }}">Units</a>
+                            @endcan
                         </x-slot>
                     </x-jet-nav-link>
                     @endcan
