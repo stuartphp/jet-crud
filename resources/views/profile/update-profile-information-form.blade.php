@@ -65,6 +65,13 @@
             <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
             <x-jet-input-error for="email" class="mt-2" />
         </div>
+        <div class="col-span-6 sn:col-span-4">
+            <x-jet-label for="email" value="{{ __('Dark Mode') }}" />
+            <label class="switch switch_outlined" data-toggle="tooltip" data-tippy-content="Toggle Dark Mode">
+                <input id="darkModeToggler" type="checkbox" wire:model.defer="state.darkmore">
+                <span></span>
+            </label>
+        </div>
     </x-slot>
 
     <x-slot name="actions">
