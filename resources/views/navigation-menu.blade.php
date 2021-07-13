@@ -16,8 +16,10 @@
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                     @can('users_management_access')
-                    <x-jet-nav-link href="#" :active="request()->is('users-management/*')" :dropdown="true">
-                        {{ __('Users Management') }}
+                    <x-jet-nav-link href="#" :active="request()->is('users-management/*')" :dropdown="true" title="{{ __('User Management') }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                          </svg>
                         <x-slot name="children">
                             @can('users_access')
                             <a href="{{ route('users-management.users') }}">Users</a>
@@ -32,22 +34,7 @@
                         </x-slot>
                     </x-jet-nav-link>
                     @endcan
-                    @can('products_access')
-                    <x-jet-nav-link href="#" :active="request()->is('products/*')" :dropdown="true">
-                        {{ __('Products') }}
-                        <x-slot name="children">
-                            @can('products_access')
-                                <a href="{{ route('products.list.index') }}">List</a>
-                            @endcan
-                            @can('categories_access')
-                                <a href="{{ route('products.categories') }}">Categories</a>
-                            @endcan
-                            @can('units_access')
-                                <a href="{{ route('products.units') }}">Units</a>
-                            @endcan
-                        </x-slot>
-                    </x-jet-nav-link>
-                    @endcan
+
                 </div>
             </div>
 
@@ -224,7 +211,6 @@
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-
                     <x-jet-responsive-nav-link href="{{ route('logout') }}" onclick="event.preventDefault();
                                     this.closest('form').submit();">
                         {{ __('Log Out') }}
