@@ -15,7 +15,7 @@ $classes = ($active ?? false)
             </svg>
     </div>
 
-    <div class="border border-gray-300 mt-3 rounded-md"
+    <div class="children border border-gray-300 mt-3 rounded-md"
     x-show="open"
     x-transition:enter="transition ease-out duration-200"
     x-transition:enter-start="transform opacity-0 scale-95"
